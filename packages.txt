@@ -23,6 +23,33 @@ Scaffold-DbContext "Data Source=LAPTOP-AHSIE6EV\SQLEXPRESS01;Initial Catalog=DBc
 
 services.AddDbContext<DICTDBContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DBConnectionStrings")));
 
+-------
+
+//if (searchby == "Model")
+            //{
+            //    var models = db.models.Where(m => m.modelName.Contains(search) || search == null);
+            //    return View(models.ToList());
+            //}
+            //else if (searchby == "Company")
+            //{
+            //    var models = db.models.Where(m => m.company.companyName.Contains(search) || search == null);
+            //    return View(models.ToList());
+            //}
+            if (searchby == "CourseName")
+            {
+                var student = _context.Student.Include(s => s.Course).Where(c => c.Course.CourseName.Contains(search) || search == null);
+                return View(student.ToList());
+            }
+            else if (searchby == "StudentName")
+            {
+                var student = _context.Student.Where(s => s.StudentName.Contains(search) || search == null);
+                return View(student.ToList());
+            }
+            var dBcollageContext = _context.Student.Include(s => s.Course);
+            return View(await dBcollageContext.ToListAsync());
+
+----
+
 
 
 ConfigurationBuilder confBuilder = new ConfigurationBuilder();
