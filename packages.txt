@@ -49,6 +49,17 @@ services.AddDbContext<DICTDBContext>(o => o.UseSqlServer(Configuration.GetConnec
             return View(await dBcollageContext.ToListAsync());
 
 ----
+<p>
+    @using (Html.BeginForm())
+    {
+        <b>Search by</b>
+        @Html.RadioButton("searchby","CourseName",true) <b>Course</b>
+        @Html.RadioButton("searchby","StudentName") <b>Student Name</b>
+        <br />
+        @Html.TextBox("search") <input type="submit" name="search" value="search" />
+    }
+</p>
+-----
 
 
 
